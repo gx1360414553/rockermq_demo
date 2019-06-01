@@ -15,11 +15,11 @@ public class Consumer1 {
 
 	public Consumer1() {
 		try {
-			String group_name = "test_model_consumer_name1";
+			String group_name = "test_model_consumer_name";
 			DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(group_name);
 			consumer.setNamesrvAddr(Const.NAMESRV_ADDR_MASTER_SLAVE);
-			consumer.subscribe("test_model_topic2", "TagA");
-			//consumer.setMessageModel(MessageModel.CLUSTERING);
+			consumer.subscribe("test_model_topic2", "*");
+//			consumer.setMessageModel(MessageModel.CLUSTERING);
 			consumer.setMessageModel(MessageModel.BROADCASTING);
 			consumer.registerMessageListener(new Listener());
 			consumer.start();

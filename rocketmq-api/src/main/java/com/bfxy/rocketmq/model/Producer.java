@@ -17,7 +17,8 @@ public class Producer {
       
         for (int i = 0; i < 10; i++) {
             try {
-            	String tag = (i % 2 ==0) ? "TagA":"TagB";
+//            	String tag = (i % 2 ==0) ? "TagA":"TagB";
+                String tag = "TagA";
                 Message msg = new Message("test_model_topic2",// topic
                 		tag,// tag
                     ("信息内容" + i).getBytes()// body

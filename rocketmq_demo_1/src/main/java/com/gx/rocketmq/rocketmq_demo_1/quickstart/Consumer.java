@@ -17,9 +17,9 @@ public class Consumer {
 
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_quick_consumer_name");
 
-        consumer.setNamesrvAddr(Const.NAMESRV_ADDR_SINGLE);
+        consumer.setNamesrvAddr(Const.NAMESRV_ADDR_MASTER_SLAVE);
 
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+//        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
 
         consumer.subscribe("test_quick_topic", "*");
 

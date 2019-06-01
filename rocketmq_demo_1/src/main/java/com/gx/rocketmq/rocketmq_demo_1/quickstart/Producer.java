@@ -4,6 +4,7 @@ import com.gx.rocketmq.rocketmq_demo_1.constants.Const;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
@@ -15,7 +16,7 @@ public class Producer {
 
         DefaultMQProducer producer = new DefaultMQProducer("test_quick_producer_name");
 
-        producer.setNamesrvAddr(Const.NAMESRV_ADDR_SINGLE);
+        producer.setNamesrvAddr(Const.NAMESRV_ADDR_MASTER_SLAVE);
 
         producer.start();
 
@@ -40,30 +41,30 @@ public class Producer {
 //            }, 2);
 //            System.err.println(sr);
 
-			SendResult sr = producer.send(message);
-			SendStatus status = sr.getSendStatus();
-			System.err.println(status);
-
-
-
-            System.err.println("消息发出: " + sr);
+//			SendResult sr = producer.send(message);
+//			SendStatus status = sr.getSendStatus();
+//			System.err.println(status);
+//
+//
+//
+//            System.err.println("消息发出: " + sr);
 
             //  2.2 异步发送消息
-//			producer.send(message, new SendCallback() {
-//				//rabbitmq急速入门的实战: 可靠性消息投递
-//				@Override
-//				public void onSuccess(SendResult sendResult) {
-//					System.err.println("msgId: " + sendResult.getMsgId() + ", status: " + sendResult.getSendStatus());
-//				}
-//				@Override
-//				public void onException(Throwable e) {
-//					e.printStackTrace();
-//					System.err.println("------发送失败");
-//				}
-//			});
+			producer.send(message, new SendCallback() {
+				//rabbitmq急速入门的实战: 可靠性消息投递
+				@Override
+				public void onSuccess(SendResult sendResult) {
+					System.err.println("msgId: " + sendResult.getMsgId() + ", status: " + sendResult.getSendStatus());
+				}
+				@Override
+				public void onException(Throwable e) {
+					e.printStackTrace();
+					System.err.println("------发送失败");
+				}
+			});
         }
 
-        producer.shutdown();
+//        producer.shutdown();
 
     }
 }

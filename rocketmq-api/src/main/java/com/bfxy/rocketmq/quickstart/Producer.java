@@ -30,9 +30,9 @@ public class Producer {
 					"key" + i,	// 	用户自定义的key ,唯一的标识
 					("Hello RocketMQ" + i).getBytes());	//	消息内容实体（byte[]）
 			//	2.1	同步发送消息
-//			if(i == 1) {
-//				message.setDelayTimeLevel(3);
-//			}
+			if(i == 1) {
+				message.setDelayTimeLevel(3);
+			}
 
 			SendResult sr = producer.send(message, new MessageQueueSelector() {
 
@@ -41,7 +41,7 @@ public class Producer {
 					Integer queueNumber = (Integer)arg;
 					return mqs.get(queueNumber);
 				}
-			}, 2);
+			}, 3);
 			System.err.println(sr);
 
 //			SendResult sr = producer.send(message);
